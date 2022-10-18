@@ -18,7 +18,7 @@ const slidesArray = Array.from(slides);
 // Figure out how many slides we have available
 const totalSlides = slidesArray.length;
 
-function updateSlidePosition() {
+function updateSlidePosition() { 
   // Using the .forEach array method, (array.forEach((element) => { per-element work goes here }))
   // loop through all the slides in your slideArray
   // and remove the 'visible' class from each classList
