@@ -56,6 +56,10 @@ form {
   - note that the period vanishes there!
 */
 
+div{
+  border:2px dashed hsla(0, 0, 0, 0.8);
+}
+
 
 .wrapper {
   min-height: 100vh;
@@ -92,7 +96,7 @@ form {
   /* this will push other blocks out of the way */
 
   /* colors */
-  background-color: #ffe08a;
+  background-color: #eae9e4ad;
   color: #4a4a4a;
 
   /* shapes */
@@ -128,14 +132,14 @@ form {
 }
 
 .left_section {
-  background-color: rgba(0, 139, 139, 0.8);
+  background-color: rgba(172, 169, 202, 0.675);
   flex: 0 1 auto;
   margin: 1rem;
   padding: 1.5rem;
 }
 
 .right_section {
-  background-color: rgba(255, 224, 138, 0.7);
+  background-color: rgba(245, 199, 72, 0.7);
   flex: 1 2 auto;
   margin: 1rem;
   align-items: center;
