@@ -59,7 +59,7 @@ router
         // A `.filter` function will return the all elements in an array that match a truth check.
         // Here, our truth check is: 'does any element contain our form query'
         // so... 'is there a restaurant with pizza (or steak or so on) in the name in this data set'
-        reply = req.foodServiceData.filter((item) => {
+        reply = req.foodServiceData.fiter((item) => {
           // This function has been split to be easier to read, although in practice it could be one line
           const lowerCaseName = item.name.toLowerCase(); // these need to be in the same case for easier comparison
           const lowerCaseQuery = req.query?.resto.toLowerCase(); // capital letters and lowercase letters are different characters to a computer
