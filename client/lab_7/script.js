@@ -66,12 +66,19 @@ function processRestaurants(list) {
   
       ## What to do in this function:
   
-      - Create an array of 15 empty elements (there are a lot of fun ways to do this, and also very basic ways)
-      - using a .map function on that range,
       - Make a list of 15 random restaurants from your list of 100 from your data request
       - Return only their name, category, and location
       - Return the new list of 15 restaurants so we can work on it separately in the HTML injector
     */
+}
+
+function filterList(list, filterInputValue) {
+  return list.filter((item) => {
+    if (!item.name) { return; }
+    const lowerCaseName = item.name.toLowerCase();
+    const lowerCaseQuery = filterInputValue.toLowerCase();
+    return lowerCaseName.includes(lowerCaseQuery);
+  });
 }
   
 async function mainEvent() {
@@ -102,6 +109,7 @@ async function mainEvent() {
       Dot notation is preferred in JS unless you have a good reason to use brackets
       The 'data' key, which we set at line 38 in foodServiceRoutes.js, contains all 1,000 records we need
     */
+  // console.log('Test PG County Set');
   // console.table(arrayFromJson.data);
   
   // in your browser console, try expanding this object to see what fields are available to work with
@@ -112,18 +120,21 @@ async function mainEvent() {
   console.log(`${arrayFromJson.data[0].name} ${arrayFromJson.data[0].category}`);
   
   // This IF statement ensures we can't do anything if we don't have information yet
-  if (arrayFromJson.data?.length > 0) {  return;} //Return if we have no data
- 
+  if (arrayFromJson.data?.length > 0) {
     submit.style.display = 'block'; // let's turn the submit button back on by setting it to display as a block when we have data available
   
     // Let's hide the load button now that we have some data to manipulate
     loadAnimation.classList.remove('lds-ellipsis');
     loadAnimation.classList.add('lds-ellipsis_hidden');
 
-    form.addEvenetListener('', (event) => {
+    let currentList = [];
+
+    form.addEventListener('input', (event) => {
       console.log(event.target.value);
-    })
-  
+      const filteredList = filterList(currentList, event.target.value);
+      injectHTML(filteredList);
+    });
+
     // And here's an eventListener! It's listening for a "submit" button specifically being clicked
     // this is a synchronous event event, because we already did our async request above, and waited for it to resolve
     form.addEventListener('submit', (submitEvent) => {
@@ -131,11 +142,10 @@ async function mainEvent() {
       submitEvent.preventDefault();
   
       // This constant will have the value of your 15-restaurant collection when it processes
-      const restaurantList = processRestaurants(arrayFromJson.data);
-      console.log(restaurantList);
+      currentList = processRestaurants(arrayFromJson.data);
   
       // And this function call will perform the "side effect" of injecting the HTML list for you
-      injectHTML(restaurantList);
+      injectHTML(currentList);
   
       // By separating the functions, we open the possibility of regenerating the list
       // without having to retrieve fresh data every time
@@ -143,10 +153,9 @@ async function mainEvent() {
     });
   }
 }
-  
 /*
     This last line actually runs first!
     It's calling the 'mainEvent' function at line 57
     It runs first because the listener is set to when your HTML content has loaded
   */
-document.addEventListener('DOMContentLoaded', async () => mainEvent()); // the async keyword means we can make API requests
+document.addEventListener('DOMContentLoaded', async () => mainEvent()); // the async keyword means we can make API request
