@@ -94,7 +94,7 @@ async function mainEvent() {
     This next line goes to the request for 'GET' in the file at /server/routes/foodServiceRoutes.js
     It's at about line 27 - go have a look and see what we're retrieving and sending back.
    */
-  const results = await fetch('/api/foodServicesPG');
+  const results = await fetch('/api/foodServicePG');
   const arrayFromJson = await results.json(); // here is where we get the data from our request as JSON
 
   /*
@@ -117,8 +117,8 @@ async function mainEvent() {
     submit.style.display = 'block'; // let's turn the submit button back on by setting it to display as a block when we have data available
 
     // Let's hide the load button now that we have some data to manipulate
-    loadAnimation.classList.remove('.lds-ellipsis');
-    loadAnimation.classList.add('.lds-ellipsis_hidden');
+    loadAnimation.classList.remove('lds-ellipsis');
+    loadAnimation.classList.add('lds-ellipsis_hidden');
 
     // And here's an eventListener! It's listening for a "submit" button specifically being clicked
     // this is a synchronous event event, because we already did our async request above, and waited for it to resolve
@@ -128,7 +128,7 @@ async function mainEvent() {
 
       // This constant will have the value of your 15-restaurant collection when it processes
       const restaurantList = processRestaurants(arrayFromJson.data);
-      console.log(restuarantList);
+      console.log(restaurantList);
 
       // And this function call will perform the "side effect" of injecting the HTML list for you
       injectHTML(restaurantList);
