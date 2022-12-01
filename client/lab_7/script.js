@@ -61,7 +61,6 @@ function processRestaurants(list) {
         then select 15 random records
         and return an object containing only the restaurant's name, category, and geocoded location
         So we can inject them using the HTML injection function
-  
         You can find the column names by carefully looking at your single returned record
         https://data.princegeorgescountymd.gov/Health/Food-Inspection/umjn-t2iz
   
@@ -113,12 +112,17 @@ async function mainEvent() {
   console.log(`${arrayFromJson.data[0].name} ${arrayFromJson.data[0].category}`);
   
   // This IF statement ensures we can't do anything if we don't have information yet
-  if (arrayFromJson.data?.length > 0) { // the question mark in this means "if this is set at all"
+  if (arrayFromJson.data?.length > 0) {  return;} //Return if we have no data
+ 
     submit.style.display = 'block'; // let's turn the submit button back on by setting it to display as a block when we have data available
   
     // Let's hide the load button now that we have some data to manipulate
     loadAnimation.classList.remove('lds-ellipsis');
     loadAnimation.classList.add('lds-ellipsis_hidden');
+
+    form.addEvenetListener('', (event) => {
+      console.log(event.target.value);
+    })
   
     // And here's an eventListener! It's listening for a "submit" button specifically being clicked
     // this is a synchronous event event, because we already did our async request above, and waited for it to resolve
